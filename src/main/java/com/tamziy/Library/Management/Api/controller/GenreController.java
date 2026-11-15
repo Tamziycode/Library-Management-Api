@@ -1,13 +1,12 @@
 package com.tamziy.Library.Management.Api.controller;
 
-import com.tamziy.Library.Management.Api.modal.GenreEntity;
+import com.tamziy.Library.Management.Api.payload.dto.GenreDTO;
 import com.tamziy.Library.Management.Api.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,9 +15,15 @@ public class GenreController {
     private final GenreService genreService;
 
     @PostMapping("/create")
-    public ResponseEntity<GenreEntity> addGenre(@RequestBody GenreEntity genre) {
-        GenreEntity createdGenre=genreService.createGenre(genre);
+    public ResponseEntity<GenreDTO> addGenre(@RequestBody GenreDTO genre) {
+        GenreDTO createdGenre=genreService.createGenre(genre);
         return ResponseEntity.ok(createdGenre);
 
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<GenreDTO>> getAllGenres(){
+        List<GenreDTO> genres = genreService.getAllGenres();
+        return ResponseEntity.ok(genres);
     }
 }

@@ -1,8 +1,11 @@
 package com.tamziy.Library.Management.Api.service;
 
-import com.tamziy.Library.Management.Api.modal.GenreEntity;
+import com.tamziy.Library.Management.Api.payload.dto.GenreDTO;
+
+import java.util.List;
 
 public interface GenreService {
 
-    GenreEntity createGenre(GenreEntity genre);
+    GenreDTO createGenre(GenreDTO genre);
+    List<GenreDTO> getAllGenres();
 }

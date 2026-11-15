@@ -1,11 +1,16 @@
 package com.tamziy.Library.Management.Api.service.implementation;
 
+import com.tamziy.Library.Management.Api.mapper.GenreMapper;
 import com.tamziy.Library.Management.Api.modal.GenreEntity;
+import com.tamziy.Library.Management.Api.payload.dto.GenreDTO;
 import com.tamziy.Library.Management.Api.repository.GenreRepository;
 import com.tamziy.Library.Management.Api.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -13,9 +18,25 @@ public class GenreServiceImplementation implements GenreService {
 
     @Autowired
     private final GenreRepository genreRepository;
+    private final GenreMapper genreMapper;
 
     @Override
-    public GenreEntity createGenre(GenreEntity genre){
-        return genreRepository.save(genre);
+    public GenreDTO createGenre(GenreDTO genreDTO){
+
+        GenreEntity genre = genreMapper.toEntity(genreDTO);
+        GenreEntity savedGenre = genreRepository.save(genre);
+
+
+        GenreDTO dto = genreMapper.toDTO(savedGenre);
+
+
+        return dto;
+    }
+
+    @Override
+    public List<GenreDTO> getAllGenres(){
+        return genreRepository.findAll().stream()
+                .map(genreMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
