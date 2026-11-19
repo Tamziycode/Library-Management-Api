@@ -31,7 +31,7 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
     long countByActiveTrue();
 
-    @Query("SELECT count(b) from Book b where b.availableCopies > 0 and b.active = true")
+    @Query("SELECT count(b) from BookEntity b where b.availableCopies > 0 and b.active = true")
     long countAvailableBooks();
 
 

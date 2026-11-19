@@ -34,8 +34,10 @@ public class BookEntity {
     private String author;
 
     @ManyToOne
-    @JoinColumn(nullable = false, unique = true)
-    private String Genre;
+    @JoinColumn(nullable = false)
+    private GenreEntity genre;
+
+    private String publisher;
 
     private LocalDate publishedDate;
 
